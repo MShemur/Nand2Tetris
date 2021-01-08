@@ -1,0 +1,62 @@
+class CrossShape {
+
+    field Array squares;
+    field int _size;
+    field bool justCreated;
+    field IShape iShape;
+
+    constructor CrossShape new(int size) {
+        let _size = size;
+        let justCreated = true;
+        let iShape = IShape.new(_size, getSegmentsCount());
+        let squares = iShape.GetSquares();
+
+        return this;
+    }
+
+    method void draw(int x, int y){
+        do iShape.draw();
+        return;
+    }
+
+    method void setCoordinates(int x, int y){
+        var SimpleSquare smpl;
+        var int i;
+
+        let i = 0;
+
+        let smpl = squares[0];
+        do smpl.setCoordinates(x+_size, y);
+
+        let smpl = squares[1];
+        do smpl.setCoordinates(x+_size, y+_size);
+
+        let smpl = squares[2];
+        do smpl.setCoordinates(x+_size+_size, y+_size);
+
+        let smpl = squares[3];
+        do smpl.setCoordinates(x, y+_size);
+        let smpl = squares[4];
+        do smpl.setCoordinates(x+_size, y+_size+_size);
+
+        return;
+    }
+
+    method int getSegmentsCount(){
+        return 5;
+    }
+
+    method Array getCoordinates(){
+        var Array points;
+
+        let points = iShape.getCoordinates();
+
+        return points;
+    }
+
+    method void dispose() {
+        do iShape.dispose();
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        return;
+    }
+}

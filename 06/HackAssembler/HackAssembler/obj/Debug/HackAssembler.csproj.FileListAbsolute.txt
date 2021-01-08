@@ -1,0 +1,7 @@
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\obj\Debug\HackAssembler.csprojAssemblyReference.cache
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\obj\Debug\HackAssembler.csproj.CoreCompileInputs.cache
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\bin\Debug\HackAssembler.exe.config
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\bin\Debug\HackAssembler.exe
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\bin\Debug\HackAssembler.pdb
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\obj\Debug\HackAssembler.exe
+C:\Users\mshem\source\repos\HackAssembler\HackAssembler\obj\Debug\HackAssembler.pdb

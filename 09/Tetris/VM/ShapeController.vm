@@ -1,0 +1,755 @@
+function ShapeController.new 0
+push constant 12
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 9
+push argument 1
+pop this 8
+call Point2d.new 0
+pop this 11
+push this 11
+push constant 13
+push this 8
+call Math.multiply 2
+push constant 0
+call Point2d.setCoordinates 3
+pop temp 0
+push this 9
+push constant 0
+gt
+push this 9
+push constant 13
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop this 9
+push this 8
+call SquareShape.new 1
+pop this 0
+push this 0
+call SquareShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE0
+push this 9
+push constant 12
+gt
+push this 9
+push constant 25
+lt
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop this 9
+push this 8
+call ZShape.new 1
+pop this 1
+push this 1
+call ZShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE1
+push this 9
+push constant 24
+gt
+push this 9
+push constant 32
+lt
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 2
+pop this 9
+push this 8
+call CrossShape.new 1
+pop this 2
+push this 2
+call CrossShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE2
+push this 9
+push constant 31
+gt
+push this 9
+push constant 46
+lt
+and
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 3
+pop this 9
+push this 8
+call FlatShape.new 1
+pop this 3
+push this 3
+call FlatShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE3
+push this 9
+push constant 45
+gt
+push this 9
+push constant 60
+lt
+and
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 4
+pop this 9
+push this 8
+call SmallFlatShape.new 1
+pop this 4
+push this 4
+call SmallFlatShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE4
+push this 9
+push constant 59
+gt
+push this 9
+push constant 75
+lt
+and
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 5
+pop this 9
+push this 8
+call LShape.new 1
+pop this 5
+push this 5
+call LShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE5
+push this 9
+push constant 74
+gt
+push this 9
+push constant 90
+lt
+and
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 6
+pop this 9
+push this 8
+call LShapeBack.new 1
+pop this 6
+push this 6
+call LShapeBack.getSegmentsCount 1
+pop this 10
+label IF_FALSE6
+push this 9
+push constant 89
+gt
+push this 9
+push constant 101
+lt
+and
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 7
+pop this 9
+push this 8
+call TShape.new 1
+pop this 7
+push this 7
+call TShape.getSegmentsCount 1
+pop this 10
+label IF_FALSE7
+push pointer 0
+call ShapeController.setCoordinates 1
+pop temp 0
+push pointer 0
+return
+function ShapeController.getSegmentsCount 0
+push argument 0
+pop pointer 0
+push this 10
+return
+function ShapeController.getPoints 2
+push argument 0
+pop pointer 0
+push this 9
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call SquareShape.getCoordinates 1
+return
+label IF_FALSE0
+push this 9
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+call ZShape.getCoordinates 1
+return
+label IF_FALSE1
+push this 9
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+call CrossShape.getCoordinates 1
+return
+label IF_FALSE2
+push this 9
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 3
+call FlatShape.getCoordinates 1
+return
+label IF_FALSE3
+push this 9
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 4
+call SmallFlatShape.getCoordinates 1
+return
+label IF_FALSE4
+push this 9
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 5
+call LShape.getCoordinates 1
+return
+label IF_FALSE5
+push this 9
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 6
+call LShapeBack.getCoordinates 1
+return
+label IF_FALSE6
+push this 9
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 7
+call TShape.getCoordinates 1
+return
+goto IF_END7
+label IF_FALSE7
+push local 1
+return
+label IF_END7
+function ShapeController.draw 2
+push argument 0
+pop pointer 0
+push this 11
+call Point2d.getX 1
+pop local 0
+push this 11
+call Point2d.getY 1
+pop local 1
+push constant 10
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push this 9
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push local 0
+push local 1
+call SquareShape.draw 3
+pop temp 0
+label IF_FALSE0
+push this 9
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push local 0
+push local 1
+call ZShape.draw 3
+pop temp 0
+label IF_FALSE1
+push this 9
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+push local 0
+push local 1
+call CrossShape.draw 3
+pop temp 0
+label IF_FALSE2
+push this 9
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 3
+call FlatShape.draw 1
+pop temp 0
+label IF_FALSE3
+push this 9
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 4
+call SmallFlatShape.draw 1
+pop temp 0
+label IF_FALSE4
+push this 9
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 5
+call LShape.draw 1
+pop temp 0
+label IF_FALSE5
+push this 9
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 6
+call LShapeBack.draw 1
+pop temp 0
+label IF_FALSE6
+push this 9
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 7
+call TShape.draw 1
+pop temp 0
+label IF_FALSE7
+push constant 0
+return
+function ShapeController.setCoordinates 2
+push argument 0
+pop pointer 0
+push this 11
+call Point2d.getX 1
+pop local 0
+push this 11
+call Point2d.getY 1
+pop local 1
+push this 9
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push local 0
+push local 1
+call SquareShape.setCoordinates 3
+pop temp 0
+label IF_FALSE0
+push this 9
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push local 0
+push local 1
+call ZShape.setCoordinates 3
+pop temp 0
+label IF_FALSE1
+push this 9
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+push local 0
+push local 1
+call CrossShape.setCoordinates 3
+pop temp 0
+label IF_FALSE2
+push this 9
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 3
+push local 0
+push local 1
+call FlatShape.setCoordinates 3
+pop temp 0
+label IF_FALSE3
+push this 9
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 4
+push local 0
+push local 1
+call SmallFlatShape.setCoordinates 3
+pop temp 0
+label IF_FALSE4
+push this 9
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 5
+push local 0
+push local 1
+call LShape.setCoordinates 3
+pop temp 0
+label IF_FALSE5
+push this 9
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 6
+push local 0
+push local 1
+call LShapeBack.setCoordinates 3
+pop temp 0
+label IF_FALSE6
+push this 9
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 7
+push local 0
+push local 1
+call TShape.setCoordinates 3
+pop temp 0
+label IF_FALSE7
+push constant 0
+return
+function ShapeController.moveDown 0
+push argument 0
+pop pointer 0
+push this 11
+push this 11
+call Point2d.getY 1
+push this 8
+add
+call Point2d.setY 2
+pop temp 0
+push pointer 0
+call ShapeController.setCoordinates 1
+pop temp 0
+push constant 0
+return
+function ShapeController.moveUp 0
+push argument 0
+pop pointer 0
+push this 11
+push this 11
+call Point2d.getY 1
+push this 8
+sub
+call Point2d.setY 2
+pop temp 0
+push pointer 0
+call ShapeController.setCoordinates 1
+pop temp 0
+push constant 0
+return
+function ShapeController.moveLeft 0
+push argument 0
+pop pointer 0
+push this 11
+push this 11
+call Point2d.getX 1
+push this 8
+sub
+call Point2d.setX 2
+pop temp 0
+push pointer 0
+call ShapeController.setCoordinates 1
+pop temp 0
+push constant 0
+return
+function ShapeController.moveRight 0
+push argument 0
+pop pointer 0
+push this 11
+push this 11
+call Point2d.getX 1
+push this 8
+add
+call Point2d.setX 2
+pop temp 0
+push pointer 0
+call ShapeController.setCoordinates 1
+pop temp 0
+push constant 0
+return
+function ShapeController.rotate 0
+push argument 0
+pop pointer 0
+push this 9
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+call ZShape.rotate 1
+pop temp 0
+label IF_FALSE0
+push this 9
+push constant 3
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 3
+call FlatShape.rotate 1
+pop temp 0
+label IF_FALSE1
+push this 9
+push constant 4
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 4
+call SmallFlatShape.rotate 1
+pop temp 0
+label IF_FALSE2
+push this 9
+push constant 5
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 5
+call LShape.rotate 1
+pop temp 0
+label IF_FALSE3
+push this 9
+push constant 6
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 6
+call LShapeBack.rotate 1
+pop temp 0
+label IF_FALSE4
+push this 9
+push constant 7
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 7
+call TShape.rotate 1
+pop temp 0
+label IF_FALSE5
+push constant 0
+return
+function ShapeController.rotateBack 0
+push argument 0
+pop pointer 0
+push this 9
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+call ZShape.rotateBack 1
+pop temp 0
+label IF_FALSE0
+push this 9
+push constant 3
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 3
+call FlatShape.rotateBack 1
+pop temp 0
+label IF_FALSE1
+push this 9
+push constant 4
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 4
+call SmallFlatShape.rotateBack 1
+pop temp 0
+label IF_FALSE2
+push this 9
+push constant 5
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 5
+call LShape.rotateBack 1
+pop temp 0
+label IF_FALSE3
+push this 9
+push constant 6
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 6
+call LShapeBack.rotateBack 1
+pop temp 0
+label IF_FALSE4
+push this 9
+push constant 7
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 7
+call TShape.rotateBack 1
+pop temp 0
+label IF_FALSE5
+push constant 0
+return
+function ShapeController.dispose 0
+push argument 0
+pop pointer 0
+push this 11
+call Point2d.dispose 1
+pop temp 0
+push this 9
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call SquareShape.dispose 1
+pop temp 0
+label IF_FALSE0
+push this 9
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+call ZShape.dispose 1
+pop temp 0
+label IF_FALSE1
+push this 9
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+call CrossShape.dispose 1
+pop temp 0
+label IF_FALSE2
+push this 9
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 3
+call FlatShape.dispose 1
+pop temp 0
+label IF_FALSE3
+push this 9
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 4
+call SmallFlatShape.dispose 1
+pop temp 0
+label IF_FALSE4
+push this 9
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 5
+call LShape.dispose 1
+pop temp 0
+label IF_FALSE5
+push this 9
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 6
+call LShapeBack.dispose 1
+pop temp 0
+label IF_FALSE6
+push this 9
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 7
+call TShape.dispose 1
+pop temp 0
+label IF_FALSE7
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,69 @@
+class SimpleSquare {
+    field int _size; // length of this square, in pixels
+    field int _x, _y;
+    field Point2d point;
+
+    constructor SimpleSquare new(int size){
+        let _size = size;
+        let point = Point2d.new();
+
+        return this;
+    }
+
+    method void setCoordinates(int x, int y){
+        do point.dispose();
+
+        let point = Point2d.new();
+        do point.setCoordinates(x, y);
+
+        return;
+    }
+
+    method Point2d getCoordinates(){
+        return point;
+    }
+
+    method void clear(){
+        do Screen.setColor(false);
+
+        if((_y < 250) & (_x > -1) & (_y > -1) & (_x<350) & (_size<50) & (_size>3)){
+          do Screen.drawRectangle(_x + 1, _y + 1, _x + _size - 1, _y + _size - 1);
+        }
+
+        return;
+    }
+
+    method void clearPointed(){
+        do Screen.setColor(false);
+        let _x = point.getX();
+        let _y = point.getY();
+
+        if((_y < 250) & (_x > -1) & (_y > -1) & (_x<350) & (_size<50) & (_size>3)) {
+         do Screen.drawRectangle(_x + 1, _y + 1, _x + _size - 1, _y + _size - 1);
+        }
+
+        return;
+    }
+
+    method void draw(){
+        do Screen.setColor(true);
+        let _x = point.getX();
+        let _y = point.getY();
+
+        if((_y < 250) & (_x > -1) & (_y > -1) & (_x<350) & (_size<50) & (_size>3)) {
+            do Screen.drawRectangle(_x + 1, _y + 1, _x + _size - 1, _y + _size - 1);
+        }
+        
+        return;
+    }
+
+    method int getSegmentsCount(){
+        return 1;
+    }
+
+    method void dispose() {
+        do point.dispose();
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        return;
+    }
+}

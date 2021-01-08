@@ -1,0 +1,106 @@
+class FlatShape {
+
+    field Array squares;
+    field int _size;
+    field bool justCreated;
+    field IShape iShape;
+    field bool vertical;
+
+    constructor FlatShape new(int size){
+        let vertical = false;
+        let _size = size;
+        let justCreated = true;
+        let iShape = IShape.new(_size, getSegmentsCount());
+        let squares = iShape.GetSquares(); 
+
+        return this;
+    }
+
+    method void draw(){
+        do iShape.draw();
+        return;
+    }
+
+    method void setCoordinates(int x, int y){
+        var SimpleSquare smpl;
+        var int i;
+        var Point2d pnt;
+
+        let i = 0;
+
+        if(~vertical){
+            while (i < 4) {
+                let smpl = squares[i];
+                do smpl.setCoordinates(x + (_size * i), y);
+                
+                let i = i + 1;
+            }   
+        }
+        
+        if(vertical) {  
+                let smpl = squares[0];
+                let pnt = smpl.getCoordinates();
+                do smpl.setCoordinates(x + (2 * _size), y - (2 * _size));
+    
+                let smpl = squares[1];
+                let pnt = smpl.getCoordinates();
+                do smpl.setCoordinates(x + (2 * _size), y - (1 * _size));
+    
+                let smpl = squares[2];
+                let pnt = smpl.getCoordinates();
+                do smpl.setCoordinates(x + (2 * _size), y);
+
+                let smpl = squares[3];
+                let pnt = smpl.getCoordinates();
+                do smpl.setCoordinates(x + (2 * _size), y + (1 * _size));  
+        }
+
+        return;
+    }
+
+    method void rotate(){
+        var SimpleSquare smpl;
+        var Point2d pnt;  
+        var bool elsee;
+        let elsee = true;  
+        
+        if (vertical) {
+            let vertical = false;
+            let smpl = squares[0];
+            let pnt = smpl.getCoordinates();
+            do setCoordinates(pnt.getX() - (2 * _size), pnt.getY()+ (2 * _size));
+            let elsee = false;  
+        }
+        if (elsee) {
+            let vertical = true;
+            let smpl = squares[0];
+            let pnt = smpl.getCoordinates();
+            do setCoordinates(pnt.getX(), pnt.getY());          
+        }
+        return;
+    }
+
+    method void rotateBack(){
+        do rotate();
+        return;
+    }
+
+
+    method int getSegmentsCount(){
+        return 4;
+    }
+
+    method Array getCoordinates(){
+        var Array points;
+
+        let points = iShape.getCoordinates();
+
+        return points;
+    }
+
+    method void dispose() {
+        do iShape.dispose();
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        return;
+    }
+}

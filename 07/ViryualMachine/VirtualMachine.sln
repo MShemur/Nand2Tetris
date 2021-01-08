@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMachine", "ViryualMachine\VirtualMachine.csproj", "{21913D8B-5EAD-43A3-850D-F598675A7E9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21913D8B-5EAD-43A3-850D-F598675A7E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21913D8B-5EAD-43A3-850D-F598675A7E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21913D8B-5EAD-43A3-850D-F598675A7E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21913D8B-5EAD-43A3-850D-F598675A7E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AD6D5A6-B557-4BC9-BAB3-B0B73F8EB0AC}
+	EndGlobalSection
+EndGlobal

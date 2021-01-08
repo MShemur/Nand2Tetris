@@ -1,0 +1,460 @@
+class TetrisGame {
+    field ShapeController shape;
+
+    field int simpleStep;
+    field int random;
+
+    field int delay;
+    field bool exitLevel;
+
+    field Array busyCellsCoordinates;
+    field int busyFieldCoordinatesCounter;
+
+    field Array rowsCoordinates;
+
+    field int leftBorder;
+    field int rightBorder;
+    field int lowBorder;
+
+    field int rowsCount;
+    field int bricksInRow;
+    field int playFieldSize;
+    field int movesMade;
+    field int maximumShapesBuilt;
+    field bool quitGame;
+
+    constructor TetrisGame new() {
+        do Output.moveCursor(10, 17);
+        do Output.printString("Welcome to tetris game");
+        do Sys.wait(1000);
+        do Screen.clearScreen();
+        do Output.moveCursor(10, 17);
+     
+        let quitGame = false;
+
+        let simpleStep = 15;
+        let delay = 200;
+        let maximumShapesBuilt = 0;
+        
+        let leftBorder = 11*simpleStep;
+        let rightBorder = 19*simpleStep;
+        let lowBorder = 255;
+        
+        let rowsCount = lowBorder / simpleStep;
+        let bricksInRow = (rightBorder - leftBorder) / simpleStep;
+        
+        return this;
+    }
+     
+    method void run() {
+        var int shapesBuilt;
+        var String built;
+        let built = "Counter: ";
+        let shapesBuilt = 0;
+        let movesMade = 0;
+        let exitLevel = false;
+        
+        do initField();
+        do startGame();
+        do drawField();
+        
+        while (~exitLevel) {
+            do drawPlayFieldShapes();
+
+            do  Output.moveCursor(2, 0);
+            
+            do  Output.printString(built);
+            do  Output.printInt(shapesBuilt);
+            do createShape();
+            do move();
+            do CheckLine();
+            
+            if(movesMade < 1)
+            {
+                let exitLevel = true;
+                let maximumShapesBuilt = shapesBuilt;
+                
+                do PrintFinishLevel(shapesBuilt);
+            }           
+            
+            let shapesBuilt = shapesBuilt + 1;
+        }
+        do built.dispose();
+        
+        if(~quitGame) {
+            do run();
+        }
+        
+        do Screen.clearScreen();
+        do Output.moveCursor(10, 17);
+        do Output.printString("End of the game");
+        
+        return;
+    }
+    
+    method void initField() {
+        let busyFieldCoordinatesCounter = 0;
+        let playFieldSize = bricksInRow * rowsCount;
+        let busyCellsCoordinates = Array.new(playFieldSize);
+
+        let rowsCoordinates = GetRowsCoordinates();
+
+        return;
+    }
+    
+    method void startGame() {
+        var int counter;
+        var String press, best;
+        let press = "Press any key: ";
+        let best = "Best: ";
+        
+        do  Output.printString(press);
+        let counter = 0;
+        
+        while(~(Keyboard.keyPressed())) {
+            let counter = counter + 1;
+        }
+        do Screen.clearScreen();
+        do LCGRandom.setSeed(counter);
+        
+        let random = LCGRandom.randRange(1, 100);
+        
+        do  Output.moveCursor(0, 0);
+        do  Output.printString(best);
+        do  Output.printInt(maximumShapesBuilt);
+        
+        do press.dispose();
+        do best.dispose();
+
+        return;
+    }
+
+    method void drawField() {
+        var String intsr1, intsr2, intsr3, intsr4;
+
+        let intsr1 = "Controls:";
+        let intsr2 = "R - rotate";
+        let intsr3 = "arrows - move shape ";
+        let intsr4 = "Q - quit";
+
+        do Output.moveCursor(14, 0);
+        do Output.printString(intsr1);
+        do Output.moveCursor(16, 0);
+        do Output.printString(intsr2);
+        do Output.moveCursor(17, 0);
+        do Output.printString(intsr3);
+        do Output.moveCursor(18, 0);
+        do Output.printString(intsr4);
+
+        do Screen.setColor(true);
+        do Screen.drawLine(leftBorder - 1, 0, leftBorder - 1, lowBorder);
+        do Screen.drawLine(rightBorder + 1, 0, rightBorder + 1, lowBorder);
+
+        do intsr1.dispose();
+        do intsr2.dispose();
+        do intsr3.dispose();
+        do intsr4.dispose();
+
+        return;
+    }
+
+    method void PrintFinishLevel(int shapesCount) {
+        var String end;
+        let end = "End of the level. Shapes built: ";
+
+        do Screen.setColor(false);
+        do Screen.drawRectangle(50, 50 , 310, 100);
+        
+        do  Output.moveCursor(5, 7);
+        do  Output.printString(end);
+        do  Output.printInt(shapesCount);
+        do  Output.moveCursor(6, 7);
+
+        do end.dispose();
+        
+        return;
+    }
+
+    method void createShape() {
+        if(~(shape=null)){
+            do shape.dispose();
+        }
+        let shape = ShapeController.new(random, simpleStep);
+        let random = LCGRandom.randRange(1, 100);
+
+        return;
+    }
+
+    method void move() {
+        var char key;
+        var int counter;
+        var bool shapeIsDown;
+        let shapeIsDown = false;
+        let counter = 0;
+        let movesMade = 0;
+        do shape.draw();
+
+        while (~shapeIsDown & ~quitGame) {
+            let key = Keyboard.keyPressed();
+
+            if (counter > 350) {
+                do shape.moveDown();
+                if(~IsMovable() | IsDown()) {
+                    let shapeIsDown = true;
+                    do shape.moveUp();
+                    do FixPoints();
+                    let movesMade = movesMade - 1;
+                }
+                let movesMade = movesMade + 1;
+
+                do shape.draw();
+                do Sys.wait(delay);
+                let counter = 0;
+            }
+
+            if (key = 82) {  // r key
+                do shape.rotate();
+                if(~IsMovable() | shapeIsDown) {
+                    do  Output.printInt(7);
+                    do shape.rotateBack();
+                }
+                do shape.draw();
+                do Sys.wait(delay);
+                let counter = counter + delay;
+            }
+
+            if (key = 132) {  // right arrow key
+                do shape.moveRight();
+                if(~IsMovable() | shapeIsDown) {
+                    do shape.moveLeft();
+                }
+
+                do shape.draw();
+                do Sys.wait(delay);
+                let counter = counter + delay;
+            }
+
+            if (key = 130) {  // left arrow key
+                do shape.moveLeft();
+
+                if(~IsMovable() | shapeIsDown) {
+                    do shape.moveRight();
+                }
+                do shape.draw();
+                do Sys.wait(delay);
+                let counter = counter + delay;
+            }
+
+            if (key = 133) {  // down arrow key
+                let counter = counter + delay;
+            }
+
+            if (key = 81){  // q key
+                let quitGame = true; 
+                let exitLevel = true;
+            }     
+
+            do Sys.wait(1);
+            let counter = counter + 1;
+        }
+
+        return;
+    }
+
+    method void FixPoints(){
+
+        var int i;
+        var Array shapePoints;
+
+        var Point2d tempShapePoint;
+        var Point2d tmp;
+        let shapePoints = shape.getPoints();
+        let i = 0;
+
+        while (i < shape.getSegmentsCount()) {
+            let tempShapePoint = shapePoints[i];
+            let tmp = Point2d.new();
+            do tmp.setCoordinates(tempShapePoint.getX(), tempShapePoint.getY());
+            let busyCellsCoordinates[busyFieldCoordinatesCounter] = tmp;
+
+            let busyFieldCoordinatesCounter = busyFieldCoordinatesCounter + 1;
+            let i = i + 1;
+        }
+
+        return;
+    }
+
+
+    method void CheckLine(){
+
+        var Point2d tempBusyFieldPoint;
+
+        var int i, j, rowsCoordinate, counter;
+
+        let i = 0;
+
+        while (i < rowsCount) {
+            let j = 0;
+            let counter = 0;
+
+            let rowsCoordinate = rowsCoordinates[i];
+
+            while (j < busyFieldCoordinatesCounter) {
+                let tempBusyFieldPoint = busyCellsCoordinates[j];
+
+                if (tempBusyFieldPoint.getY() = rowsCoordinate) {
+                    let counter = counter + 1;
+                    if (counter = bricksInRow) {
+                        do RemoveRow(rowsCoordinate);
+                        return;
+                    }
+                }
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+
+        return;
+    }
+
+    method void drawPlayFieldShapes() {
+        var PlayFieldHeap playHeap;
+        let  playHeap = PlayFieldHeap.new(simpleStep, leftBorder, busyCellsCoordinates);
+        do playHeap.drawField(rowsCount, bricksInRow, busyFieldCoordinatesCounter);
+        do playHeap.dispose();
+        return;
+    }
+
+    method void RemoveRow(int rowYCoordinate){
+        var Point2d tempBusyFieldPoint;
+        var Point2d tmpNewArrayPoint;
+        var Array tempArray;
+        var int i,j;
+        let i = 0;
+        let j = 0;
+
+        let tempArray = Array.new(playFieldSize);
+
+        while (i < busyFieldCoordinatesCounter) {
+            let tempBusyFieldPoint = busyCellsCoordinates[i];
+
+            if(rowYCoordinate < tempBusyFieldPoint.getY()) {
+                let tmpNewArrayPoint = Point2d.new();
+                do tmpNewArrayPoint.setCoordinates(tempBusyFieldPoint.getX(), tempBusyFieldPoint.getY());
+                let tempArray[j] = tmpNewArrayPoint;
+                let j = j + 1;
+            }     
+            if(rowYCoordinate > tempBusyFieldPoint.getY()) {
+                do tempBusyFieldPoint.setY(tempBusyFieldPoint.getY() + simpleStep);
+                let tmpNewArrayPoint = Point2d.new();
+                do tmpNewArrayPoint.setCoordinates(tempBusyFieldPoint.getX(), tempBusyFieldPoint.getY());
+                let tempArray[j] = tmpNewArrayPoint;
+                let j = j + 1;
+            }
+
+            let i = i + 1;
+        }
+
+        let i = 0;
+
+        while (i < busyFieldCoordinatesCounter){
+            let tmpNewArrayPoint = busyCellsCoordinates[i];
+            do tmpNewArrayPoint.dispose();
+            let i = i + 1;
+        }
+        
+        let busyFieldCoordinatesCounter = j;
+        do busyCellsCoordinates.dispose();
+        let busyCellsCoordinates = tempArray;
+
+        do CheckLine();
+        return;
+    }
+
+    method Array GetRowsCoordinates(){
+        var Array rowCoordinates;
+        var int i;
+
+        let rowCoordinates = Array.new(rowsCount);
+        let i = 0;
+
+        while (i < rowsCount) {
+            let rowCoordinates[i] = i * simpleStep;
+            let i = i + 1;
+        }
+
+        return rowCoordinates;
+    }
+
+    method bool IsMovable(){
+        var int i;
+        var int j;
+
+        var Array shapePoints;
+
+        var Point2d tempPlayFieldPoint;
+        var Point2d tempShapePoint;
+
+        let i = 0;
+        let shapePoints = shape.getPoints();
+
+        while (i < shape.getSegmentsCount()) {
+            let tempShapePoint = shapePoints[i];
+            let j = 0;
+            while (j < busyFieldCoordinatesCounter) {
+                let tempPlayFieldPoint = busyCellsCoordinates[j];
+                if (~(tempPlayFieldPoint = null)) {
+                    if(tempShapePoint.equals(tempPlayFieldPoint)){
+                        return false;
+                    }
+                }
+                let j = j + 1;
+            }
+            if((tempShapePoint.getX() + simpleStep) > rightBorder) {
+                return false;
+            }
+            if(tempShapePoint.getX() < leftBorder) {
+                return false;
+            }
+            if(tempShapePoint.getY() < 0) {
+                return false;
+            }
+
+            let i = i + 1;
+        }
+        return true;
+    }
+
+    method bool IsDown(){
+        var int i;
+        var int j;
+
+        var Array shapePoints;
+
+        var Point2d tempShapePoint;
+
+        let i = 0;
+        let shapePoints = shape.getPoints();
+
+        while (i < shape.getSegmentsCount()) {
+            let tempShapePoint = shapePoints[i];
+
+            if((tempShapePoint.getY() + simpleStep) > lowBorder) {
+                return true;
+            }
+            let i = i + 1;
+        }
+        return false;
+    }
+
+    method void dispose() {
+        do shape.dispose();
+        do busyCellsCoordinates.dispose();
+        do rowsCoordinates.dispose();
+
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+
+        return;
+    }
+}
+

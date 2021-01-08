@@ -1,0 +1,66 @@
+class PlayFieldHeap {
+ 
+   field Array filledSquaress;
+
+    field int simpleSize;
+    field int _leftBorderCoordinate;
+    field int playFieldCapacity;
+
+    constructor PlayFieldHeap new(int size, int leftBorderCoordinate,Array filledSquares) {
+        let simpleSize = size;
+        let _leftBorderCoordinate = leftBorderCoordinate;
+        let filledSquaress = filledSquares;
+
+        return this;
+    }
+
+    method void drawField(int rowsCount, int columnsCount,  int filledSquaresCount) {
+        var SimpleSquare smpl;
+
+        var int i, j, rows, columns;
+        var Point2d tempCoordinate;
+        var int filledCount;
+
+        let filledCount = filledSquaresCount;
+        let rows = rowsCount;
+        let columns = columnsCount;
+        let i = 0;
+        let playFieldCapacity = rows * columns;
+
+        while (i < (rows)) {
+            let j = 0;
+            while (j < columns) {
+                let smpl = SimpleSquare.new(simpleSize);
+
+                do smpl.setCoordinates(_leftBorderCoordinate + (j * simpleSize), i * simpleSize);
+                do smpl.clearPointed();   
+                do smpl.dispose();   
+
+                let j = j + 1; 
+            }
+
+            let i = i + 1;
+        }   
+
+        let i = 0;
+
+        while (i < filledCount) {
+                let tempCoordinate = filledSquaress[i];
+                let smpl = SimpleSquare.new(simpleSize);
+
+                do smpl.setCoordinates(tempCoordinate.getX(), tempCoordinate.getY());
+                do smpl.draw();   
+                do smpl.dispose();   
+
+            let i = i + 1;
+        }   
+
+        return;
+    }   
+    
+    method void dispose() {
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        
+        return;
+    }
+}

@@ -1,0 +1,157 @@
+
+class LShapeBack {
+
+    field Array squares;
+    field int _size;
+    field bool justCreated;
+    field IShape iShape;
+    field int posNumber;
+
+
+    constructor LShapeBack new(int size){
+        let posNumber = 0;
+        let _size = size;
+        let justCreated = true;
+        let iShape = IShape.new(_size, getSegmentsCount());
+        let squares = iShape.GetSquares(); 
+
+        return this;
+    }
+
+    method void draw(){
+        do iShape.draw();
+         return;
+    }
+
+    method void setCoordinates(int x, int y){
+        var SimpleSquare smpl;
+        var int i;
+        var Point2d pnt;
+        let i = 0;
+
+        if(posNumber = 0){
+            let smpl = squares[0];
+            do smpl.setCoordinates(x, y);
+
+            let smpl = squares[1];
+            do smpl.setCoordinates(x + _size, y);
+
+            let smpl = squares[2];
+            do smpl.setCoordinates(x + (2*_size), y);
+
+            let smpl = squares[3];
+            do smpl.setCoordinates(x + (2*_size), y + _size);
+        }
+
+        if(posNumber = 1){
+            let smpl = squares[0];
+            do smpl.setCoordinates(x + _size, y - (2*_size));
+
+            let smpl = squares[1];
+            do smpl.setCoordinates(x + _size, y);
+
+            let smpl = squares[2];
+            do smpl.setCoordinates(x , y);
+
+            let smpl = squares[3];
+            do smpl.setCoordinates(x + _size, y - _size);
+        }
+
+        if(posNumber = 2){
+            let smpl = squares[0];
+            do smpl.setCoordinates(x, y- _size);
+
+            let smpl = squares[1];
+            do smpl.setCoordinates(x + _size, y- _size);
+
+            let smpl = squares[2];
+            do smpl.setCoordinates(x + (2*_size), y- _size);
+
+            let smpl = squares[3];
+            do smpl.setCoordinates(x , y- (2*_size));
+        }
+
+        if(posNumber = 3){
+            let smpl = squares[0];
+            do smpl.setCoordinates(x+ (2*_size), y- (2*_size));
+
+            let smpl = squares[1];
+            do smpl.setCoordinates(x + _size, y- (2*_size));
+
+            let smpl = squares[2];
+            do smpl.setCoordinates(x + _size, y- _size);
+
+            let smpl = squares[3];
+            do smpl.setCoordinates(x+ _size , y);
+        }
+
+        return;
+    }
+
+    method void rotate(){
+        var SimpleSquare smpl;
+        var Point2d pnt;  
+        var bool elsee;
+        let elsee = true;  
+        
+        if(posNumber = 0){
+            let posNumber = 1;
+            let smpl = squares[0];
+            let pnt = smpl.getCoordinates();
+            do setCoordinates(pnt.getX(), pnt.getY());          
+            let elsee = false;  
+        }
+        if (elsee & (posNumber = 1)) {
+            let posNumber = 2;
+            let smpl = squares[1];
+            let pnt = smpl.getCoordinates();
+            do setCoordinates(pnt.getX()- _size, pnt.getY()+ _size);          
+            let elsee = false;        
+        }
+        if (elsee & (posNumber = 2)) {
+            let posNumber = 3;
+            let smpl = squares[0];
+            let pnt = smpl.getCoordinates();
+            do setCoordinates(pnt.getX(), pnt.getY()+ _size);          
+            let elsee = false;        
+        }
+        if (elsee & (posNumber = 3)) {
+            let posNumber = 0;
+            let smpl = squares[3];
+            let pnt = smpl.getCoordinates();
+            do setCoordinates(pnt.getX()-(1* _size), pnt.getY()-(2* _size));          
+            let elsee = false;        
+        }
+
+        return;
+    }
+
+    //bug in here - when we rotateback, we take base points cooredinates from the wrong swuares,
+    //so figure "jumps" on screen
+    method void rotateBack(){
+        let posNumber = posNumber-2;
+        if (posNumber < 0) {
+            let posNumber = posNumber+getSegmentsCount();
+        }
+        do rotate();
+
+        return;
+    }
+
+    method int getSegmentsCount(){
+        return 4;
+    }
+
+    method Array getCoordinates(){
+        var Array points;
+        let points = iShape.getCoordinates();
+
+        return points;
+    }
+
+    method void dispose() {
+        do iShape.dispose();
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        return;
+    }
+}

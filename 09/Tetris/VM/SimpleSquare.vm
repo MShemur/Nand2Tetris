@@ -1,0 +1,224 @@
+function SimpleSquare.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+call Point2d.new 0
+pop this 3
+push pointer 0
+return
+function SimpleSquare.setCoordinates 0
+push argument 0
+pop pointer 0
+push this 3
+call Point2d.dispose 1
+pop temp 0
+call Point2d.new 0
+pop this 3
+push this 3
+push argument 1
+push argument 2
+call Point2d.setCoordinates 3
+pop temp 0
+push constant 0
+return
+function SimpleSquare.getCoordinates 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function SimpleSquare.clear 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push constant 250
+lt
+push this 1
+push constant 1
+neg
+gt
+and
+push this 2
+push constant 1
+neg
+gt
+and
+push this 1
+push constant 350
+lt
+and
+push this 0
+push constant 50
+lt
+and
+push this 0
+push constant 3
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 1
+add
+push this 2
+push constant 1
+add
+push this 1
+push this 0
+add
+push constant 1
+sub
+push this 2
+push this 0
+add
+push constant 1
+sub
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function SimpleSquare.clearPointed 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 3
+call Point2d.getX 1
+pop this 1
+push this 3
+call Point2d.getY 1
+pop this 2
+push this 2
+push constant 250
+lt
+push this 1
+push constant 1
+neg
+gt
+and
+push this 2
+push constant 1
+neg
+gt
+and
+push this 1
+push constant 350
+lt
+and
+push this 0
+push constant 50
+lt
+and
+push this 0
+push constant 3
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 1
+add
+push this 2
+push constant 1
+add
+push this 1
+push this 0
+add
+push constant 1
+sub
+push this 2
+push this 0
+add
+push constant 1
+sub
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function SimpleSquare.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 3
+call Point2d.getX 1
+pop this 1
+push this 3
+call Point2d.getY 1
+pop this 2
+push this 2
+push constant 250
+lt
+push this 1
+push constant 1
+neg
+gt
+and
+push this 2
+push constant 1
+neg
+gt
+and
+push this 1
+push constant 350
+lt
+and
+push this 0
+push constant 50
+lt
+and
+push this 0
+push constant 3
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 1
+add
+push this 2
+push constant 1
+add
+push this 1
+push this 0
+add
+push constant 1
+sub
+push this 2
+push this 0
+add
+push constant 1
+sub
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function SimpleSquare.getSegmentsCount 0
+push argument 0
+pop pointer 0
+push constant 1
+return
+function SimpleSquare.dispose 0
+push argument 0
+pop pointer 0
+push this 3
+call Point2d.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

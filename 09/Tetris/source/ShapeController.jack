@@ -1,0 +1,290 @@
+class ShapeController {
+
+    field SquareShape square;
+    field ZShape zshape;
+    field CrossShape crosShape;
+    field FlatShape flatShape;
+    field SmallFlatShape smallFlatShape;
+    field LShape lShape;
+    field LShapeBack lShapeBack;
+    field TShape tShape;
+
+    field int _size;
+    field int shapeNumber;
+
+    field int segmentsCount;
+
+    field Point2d leftUpCoordinate;
+
+    constructor ShapeController new(int shape, int size) {
+        let shapeNumber = shape;
+        let _size = size;
+        let leftUpCoordinate = Point2d.new();
+
+        do leftUpCoordinate.setCoordinates(13*_size, 0);
+
+        if((shapeNumber > 0) & (shapeNumber < 13)) {
+            let shapeNumber = 0;
+            let square = SquareShape.new(_size);
+            let segmentsCount = square.getSegmentsCount();
+        }
+
+        if((shapeNumber > 12) & (shapeNumber < 25)) {
+            let shapeNumber = 1;
+            let zshape = ZShape.new(_size);
+            let segmentsCount = zshape.getSegmentsCount();
+        }
+
+        if((shapeNumber > 24) & (shapeNumber < 32)) {
+            let shapeNumber = 2;
+            let crosShape = CrossShape.new(_size);
+            let segmentsCount = crosShape.getSegmentsCount();
+        }
+
+        if((shapeNumber > 31) & (shapeNumber < 46)) {
+            let shapeNumber = 3;
+            let flatShape = FlatShape.new(_size);
+           let segmentsCount = flatShape.getSegmentsCount();         
+        }
+
+        if((shapeNumber > 45) & (shapeNumber < 60)) {
+            let shapeNumber = 4;
+            let smallFlatShape = SmallFlatShape.new(_size);
+            let segmentsCount = smallFlatShape.getSegmentsCount();
+        }
+        if((shapeNumber > 59) & (shapeNumber < 75)) {
+            let shapeNumber = 5;
+            let lShape = LShape.new(_size);
+            let segmentsCount = lShape.getSegmentsCount();
+         }
+         if((shapeNumber > 74) & (shapeNumber < 90)) {
+            let shapeNumber = 6;
+            let lShapeBack = LShapeBack.new(_size);
+            let segmentsCount = lShapeBack.getSegmentsCount();
+         }
+         if((shapeNumber > 89) & (shapeNumber < 101)) {
+            let shapeNumber = 7;
+            let tShape = TShape.new(_size);
+            let segmentsCount = tShape.getSegmentsCount();
+         }
+        do setCoordinates();
+        return this;
+    }
+
+    method int getSegmentsCount(){
+        return segmentsCount;
+    }
+
+    method Array getPoints(){
+        var int i;
+        var Array points;
+
+        if(shapeNumber = 0) {
+            return square.getCoordinates();
+        }
+
+        if(shapeNumber = 1) {
+            return zshape.getCoordinates();
+        }
+
+        if(shapeNumber = 2) {
+            return crosShape.getCoordinates();
+        }
+
+        if(shapeNumber = 3) {
+            return flatShape.getCoordinates();
+        }
+
+        if(shapeNumber = 4) {
+            return smallFlatShape.getCoordinates();
+        }
+        if(shapeNumber = 5) {
+            return lShape.getCoordinates();
+        }
+        if(shapeNumber = 6) {
+            return lShapeBack.getCoordinates();
+        }
+        if(shapeNumber = 7) {
+            return tShape.getCoordinates();
+        }
+        else {
+           return points;
+        }
+    }
+
+    method void draw() {
+        var int x, y;
+        let x = leftUpCoordinate.getX();
+        let y = leftUpCoordinate.getY();
+        do  Output.moveCursor(10, 0);
+
+        if(shapeNumber = 0) {
+            do square.draw(x, y);
+        }
+
+        if(shapeNumber = 1) {
+            do zshape.draw(x, y);
+        }
+
+        if(shapeNumber = 2) {
+            do crosShape.draw(x, y);
+        }
+        if(shapeNumber = 3) {
+            do flatShape.draw();
+        }
+        if(shapeNumber = 4) {
+            do smallFlatShape.draw();
+        }
+        if(shapeNumber = 5) {
+            do lShape.draw();
+        }
+        if(shapeNumber = 6) {
+            do lShapeBack.draw();
+        }
+        if(shapeNumber = 7) {
+            do tShape.draw();
+        }
+
+        return;
+    }
+
+    method void setCoordinates() {
+        var int x, y;
+        let x = leftUpCoordinate.getX();
+        let y = leftUpCoordinate.getY();
+     
+        if(shapeNumber = 0) {
+            do square.setCoordinates(x, y);
+        }
+        if(shapeNumber = 1) {
+            do zshape.setCoordinates(x, y);
+        }
+        if(shapeNumber = 2) {
+            do crosShape.setCoordinates(x, y);
+        }
+        if(shapeNumber = 3) {
+            do flatShape.setCoordinates(x, y);
+        }
+        if(shapeNumber = 4) {
+            do smallFlatShape.setCoordinates(x, y);
+        }
+        if(shapeNumber = 5) {
+            do lShape.setCoordinates(x, y);
+        }
+        if(shapeNumber = 6) {
+            do lShapeBack.setCoordinates(x, y);
+        }
+        if(shapeNumber = 7) {
+            do tShape.setCoordinates(x, y);
+        }
+
+        return;
+    }
+
+     
+
+    method void moveDown() {
+        do leftUpCoordinate.setY(leftUpCoordinate.getY() + _size);
+        do setCoordinates();
+
+        return;
+    }
+
+    method void moveUp() {
+        do leftUpCoordinate.setY(leftUpCoordinate.getY() - _size);
+        do setCoordinates();
+
+        return;
+    }
+
+    method void moveLeft() {
+        do leftUpCoordinate.setX(leftUpCoordinate.getX() - _size);
+        do setCoordinates();
+
+        return;
+    }
+
+    method void moveRight() {
+        do leftUpCoordinate.setX(leftUpCoordinate.getX() + _size);
+        do setCoordinates();
+
+        return;
+    }
+
+    method void rotate() {
+        if(shapeNumber = 1) {
+            do zshape.rotate();
+        }
+        if(shapeNumber = 3) {
+            do flatShape.rotate();
+        }
+        if(shapeNumber = 4) {
+            do smallFlatShape.rotate();
+        }
+        if(shapeNumber = 5) {
+            do lShape.rotate();
+        }
+        if(shapeNumber = 6) {
+            do lShapeBack.rotate();
+        }
+        if(shapeNumber = 7) {
+            do tShape.rotate();
+        }
+
+        return;
+    }
+
+    method void rotateBack() {
+        if(shapeNumber = 1) {
+            do zshape.rotateBack();
+        }
+        if(shapeNumber = 3) {
+            do flatShape.rotateBack();
+        }
+        if(shapeNumber = 4) {
+            do smallFlatShape.rotateBack();
+        }
+        if(shapeNumber = 5) {
+            do lShape.rotateBack();
+        }
+        if(shapeNumber = 6) {
+            do lShapeBack.rotateBack();
+        }
+        if(shapeNumber = 7) {
+            do tShape.rotateBack();
+        }
+
+        return;
+    }
+
+    method void dispose() {
+       do leftUpCoordinate.dispose();
+        if(shapeNumber = 0) {
+            do square.dispose();       
+        }
+        if(shapeNumber = 1) {  
+            do zshape.dispose();
+        }
+        if(shapeNumber = 2) {
+            do crosShape.dispose();
+        }
+        if(shapeNumber = 3) {
+            do flatShape.dispose();
+        }
+        if(shapeNumber = 4) {
+            do smallFlatShape.dispose();
+        }
+        if(shapeNumber = 5) {
+            do lShape.dispose();
+        }
+        if(shapeNumber = 6) {
+            do lShapeBack.dispose();
+        }
+        if(shapeNumber = 7) {
+            do tShape.dispose();
+        }
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        
+        return;
+    }
+}

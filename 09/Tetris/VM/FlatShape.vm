@@ -1,0 +1,255 @@
+function FlatShape.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 4
+push argument 0
+pop this 1
+push constant 0
+not
+pop this 2
+push this 1
+push pointer 0
+call FlatShape.getSegmentsCount 1
+call IShape.new 2
+pop this 3
+push this 3
+call IShape.GetSquares 1
+pop this 0
+push pointer 0
+return
+function FlatShape.draw 0
+push argument 0
+pop pointer 0
+push this 3
+call IShape.draw 1
+pop temp 0
+push constant 0
+return
+function FlatShape.setCoordinates 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push this 4
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+label WHILE_EXP0
+push local 1
+push constant 4
+lt
+not
+if-goto WHILE_END0
+push local 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push this 1
+push local 1
+call Math.multiply 2
+add
+push argument 2
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+label IF_FALSE0
+push this 4
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SimpleSquare.getCoordinates 1
+pop local 2
+push local 0
+push argument 1
+push constant 2
+push this 1
+call Math.multiply 2
+add
+push argument 2
+push constant 2
+push this 1
+call Math.multiply 2
+sub
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SimpleSquare.getCoordinates 1
+pop local 2
+push local 0
+push argument 1
+push constant 2
+push this 1
+call Math.multiply 2
+add
+push argument 2
+push constant 1
+push this 1
+call Math.multiply 2
+sub
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 2
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SimpleSquare.getCoordinates 1
+pop local 2
+push local 0
+push argument 1
+push constant 2
+push this 1
+call Math.multiply 2
+add
+push argument 2
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 3
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SimpleSquare.getCoordinates 1
+pop local 2
+push local 0
+push argument 1
+push constant 2
+push this 1
+call Math.multiply 2
+add
+push argument 2
+push constant 1
+push this 1
+call Math.multiply 2
+add
+call SimpleSquare.setCoordinates 3
+pop temp 0
+label IF_FALSE1
+push constant 0
+return
+function FlatShape.rotate 3
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop local 2
+push this 4
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop this 4
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SimpleSquare.getCoordinates 1
+pop local 1
+push pointer 0
+push local 1
+call Point2d.getX 1
+push constant 2
+push this 1
+call Math.multiply 2
+sub
+push local 1
+call Point2d.getY 1
+push constant 2
+push this 1
+call Math.multiply 2
+add
+call FlatShape.setCoordinates 3
+pop temp 0
+push constant 0
+pop local 2
+label IF_FALSE0
+push local 2
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+pop this 4
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SimpleSquare.getCoordinates 1
+pop local 1
+push pointer 0
+push local 1
+call Point2d.getX 1
+push local 1
+call Point2d.getY 1
+call FlatShape.setCoordinates 3
+pop temp 0
+label IF_FALSE1
+push constant 0
+return
+function FlatShape.rotateBack 0
+push argument 0
+pop pointer 0
+push pointer 0
+call FlatShape.rotate 1
+pop temp 0
+push constant 0
+return
+function FlatShape.getSegmentsCount 0
+push argument 0
+pop pointer 0
+push constant 4
+return
+function FlatShape.getCoordinates 1
+push argument 0
+pop pointer 0
+push this 3
+call IShape.getCoordinates 1
+pop local 0
+push local 0
+return
+function FlatShape.dispose 0
+push argument 0
+pop pointer 0
+push this 3
+call IShape.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,13 @@
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\bin\Debug\netcoreapp3.1\VirtualMachine.exe
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\bin\Debug\netcoreapp3.1\VirtualMachine.deps.json
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\bin\Debug\netcoreapp3.1\VirtualMachine.runtimeconfig.json
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\bin\Debug\netcoreapp3.1\VirtualMachine.runtimeconfig.dev.json
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\bin\Debug\netcoreapp3.1\VirtualMachine.dll
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\bin\Debug\netcoreapp3.1\VirtualMachine.pdb
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.csprojAssemblyReference.cache
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.AssemblyInfoInputs.cache
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.AssemblyInfo.cs
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.csproj.CoreCompileInputs.cache
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.dll
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.pdb
+C:\Users\mshem\source\repos\ViryualMachine\ViryualMachine\obj\Debug\netcoreapp3.1\VirtualMachine.genruntimeconfig.cache

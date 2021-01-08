@@ -1,0 +1,110 @@
+function SquareShape.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 1
+push constant 0
+not
+pop this 2
+push this 1
+push pointer 0
+call SquareShape.getSegmentsCount 1
+call IShape.new 2
+pop this 3
+push this 3
+call IShape.GetSquares 1
+pop this 0
+push pointer 0
+return
+function SquareShape.draw 0
+push argument 0
+pop pointer 0
+push this 3
+call IShape.draw 1
+pop temp 0
+push constant 0
+return
+function SquareShape.setCoordinates 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push constant 3
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push argument 2
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 2
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push this 1
+add
+push argument 2
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push this 1
+add
+push argument 2
+push this 1
+add
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push argument 2
+push this 1
+add
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push constant 0
+return
+function SquareShape.getSegmentsCount 0
+push argument 0
+pop pointer 0
+push constant 4
+return
+function SquareShape.getCoordinates 1
+push argument 0
+pop pointer 0
+push this 3
+call IShape.getCoordinates 1
+pop local 0
+push local 0
+return
+function SquareShape.dispose 0
+push argument 0
+pop pointer 0
+push this 3
+call IShape.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

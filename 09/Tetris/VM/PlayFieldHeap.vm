@@ -1,0 +1,119 @@
+function PlayFieldHeap.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 1
+push argument 1
+pop this 2
+push argument 2
+pop this 0
+push pointer 0
+return
+function PlayFieldHeap.drawField 7
+push argument 0
+pop pointer 0
+push argument 3
+pop local 6
+push argument 1
+pop local 3
+push argument 2
+pop local 4
+push constant 0
+pop local 1
+push local 3
+push local 4
+call Math.multiply 2
+pop this 3
+label WHILE_EXP0
+push local 1
+push local 3
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 2
+label WHILE_EXP1
+push local 2
+push local 4
+lt
+not
+if-goto WHILE_END1
+push this 1
+call SimpleSquare.new 1
+pop local 0
+push local 0
+push this 2
+push local 2
+push this 1
+call Math.multiply 2
+add
+push local 1
+push this 1
+call Math.multiply 2
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push local 0
+call SimpleSquare.clearPointed 1
+pop temp 0
+push local 0
+call SimpleSquare.dispose 1
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+pop local 1
+label WHILE_EXP2
+push local 1
+push local 6
+lt
+not
+if-goto WHILE_END2
+push local 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 5
+push this 1
+call SimpleSquare.new 1
+pop local 0
+push local 0
+push local 5
+call Point2d.getX 1
+push local 5
+call Point2d.getY 1
+call SimpleSquare.setCoordinates 3
+pop temp 0
+push local 0
+call SimpleSquare.draw 1
+pop temp 0
+push local 0
+call SimpleSquare.dispose 1
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP2
+label WHILE_END2
+push constant 0
+return
+function PlayFieldHeap.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

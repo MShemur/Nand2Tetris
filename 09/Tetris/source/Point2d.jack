@@ -1,0 +1,52 @@
+class Point2d {
+
+    field int _x, _y;
+
+    constructor Point2d new(){
+        return this;
+    }
+
+    method void setCoordinates(int x, int y){
+        let _x = x;
+        let _y = y;
+        return;
+    }
+
+    method int getX() {
+        return _x;
+    }
+
+    method int getY() {
+        return _y;
+    }
+
+    method void setX(int x) {
+        let _x = x;
+        return;
+    }
+
+    method void setY(int y) {
+        let _y = y;
+        return;
+    }
+
+    method bool equals(Point2d other) {
+        var int tempX;
+        var int tempY;
+
+        let tempX = other.getX();
+        let tempY = other.getY();
+
+        if (_x = tempX & _y = tempY) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+        return;
+    }
+}

@@ -1,0 +1,99 @@
+class IShape {
+
+    field Array points;
+    field Array squares;
+    field int _segmentsCount;
+    field int _size;
+
+    field bool justCreated;
+
+    constructor IShape new(int _simpleSize, int segmentsCount){
+        let justCreated = true;
+        let _size = _simpleSize; 
+        let _segmentsCount = segmentsCount; 
+        do CreateSquares();
+        return this;
+    }
+
+    method void CreateSquares(){
+        var int i;
+        let i = 0;
+
+        let squares = Array.new(getSegmentsCount());
+
+        while (i < getSegmentsCount()) {
+            let squares[i] = SimpleSquare.new(_size);
+            let i = i + 1;
+        }  
+
+        return;
+    }
+
+    method Array GetSquares(){
+        return squares;
+    }
+
+    method void draw(){
+        var SimpleSquare smpl;
+        var int i;
+
+        let i = 0;
+
+        if(~justCreated){
+            while (i < getSegmentsCount()) {
+                let smpl = squares[i];
+                do smpl.clear();        
+                let i = i + 1;
+            }   
+        }
+
+        let i = 0;
+        while (i < getSegmentsCount()) {
+            let smpl = squares[i];
+            do smpl.draw();        
+            let i = i + 1;
+        }   
+        let justCreated = false;
+
+      return;
+    }
+
+    method int getSegmentsCount(){
+        return _segmentsCount;
+    }
+
+    method Array getCoordinates(){
+        var int i;
+        var SimpleSquare tempSquare;
+
+        let points = Array.new(getSegmentsCount());
+        let i = 0;
+
+        while (i < getSegmentsCount()){
+            let tempSquare = squares[i];
+            let points[i] = tempSquare.getCoordinates();
+            let i = i + 1;
+        }
+
+        return points;
+    }
+
+    method void dispose() {
+        var SimpleSquare smpl;
+        var int i;
+        let i = 0;
+
+        while (i < getSegmentsCount()) {
+            let smpl = squares[i];
+            do smpl.dispose();        
+            let i = i + 1;
+        } 
+
+        do squares.dispose();
+
+        do points.dispose();
+        do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+
+        return;
+    }
+}
